@@ -1,0 +1,38 @@
+{% extends "bookshop/base.html" %}
+
+{% block content %}
+<div class="create_book">
+    <h1>Добавить книгу:</h1>
+    <form method="post" enctype='multipart/form-data'>
+        {% csrf_token %}
+        <label for="book_name">Название книги</label>
+        <div class="createbook_form">
+            {{ form.book_name }} 
+        </div>
+        <label for="description">Описание</label>
+        <div class="createbook_form">
+            {{ form.description }}
+        </div>
+        <div class="create_form_page_price">
+            <label for="pages">Количество страниц</label>
+                {{ form.pages }}
+                <label for="price">Цена</label>
+                {{ form.price }}
+        </div>
+            <label for="language">Язык</label>
+            {{ form.language }}
+        <div class='create_form_2'>
+            <label for="author">Автор</label>
+            {{ form.author }}
+            <label for="genre">Жанр</label>
+            {{ form.genre }}
+        </div>
+        <label for="photo">Фото-обложка книги: </label>
+        {{ form.photo }}
+        <div class="btn">
+            <input type="submit" value="Сохранить">
+            <a href="{% url 'home' %}">Вернуться к списку</a>
+        </div> 
+    </form>
+</div>
+    {% endblock content %}

@@ -1,0 +1,9 @@
+{% extends "bookshop/base.html" %}
+{% block title %}Выйти{% endblock %}
+{% block content %}
+  <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Выйти">
+  </form>
+{% endblock %} 

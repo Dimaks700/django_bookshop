@@ -1,0 +1,176 @@
+body h1 {
+    text-align: center;
+    margin: 0 0 20px;;
+}
+body {
+    background-color: rgb(255, 255, 255);
+    color: black;
+    font: normal 16px Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    text-align: start;
+    max-width: 60%;
+    padding-top: 10px;
+    margin: auto;
+}
+
+.everything {
+    background-color: rgb(255, 213, 149);
+    border-radius: 30px;
+    padding: 40px 40px 20px;
+
+}
+.everything h1 {
+    margin-top: 10px;
+}
+.everything h4 {
+    margin-bottom: 5px;
+}
+
+.home_page {
+    padding: 10px;
+}
+
+.greeting {
+    margin-bottom: 10px;
+}
+
+a {
+    color: rgb(51, 0, 102);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:active {
+    color:rgb(88, 5, 156);
+}
+a:visited {
+    color:rgb(149, 45, 235);
+}
+
+.some_class li {
+    color: rgb(0, 0, 0);
+    padding: 0 0px;
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.pagination {
+    margin-top: 0px;
+}
+
+.create_book {
+    padding-left: 30px;
+    padding-right: 35px;
+}
+
+.create_book input, input, textarea, select {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgb(97, 92, 92);
+    font-family: inherit;
+    font-size: 15px;
+    background: transparent;
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.create_book label {
+    font-size: 12px;
+    display: block;
+    padding: 10px 10px 10px;
+    margin-top: 5px;
+}
+
+.create_form_page_price {
+    display: flex;
+}
+
+.create_form_2 {
+    margin-top: 15px;
+    display: flex;
+}
+
+.btn {
+    font-family: inherit;
+    padding: 30px 0 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.btn input {
+    cursor: pointer;
+    width: 50%;
+}
+
+.btn a {
+    width: 25%;
+    text-align: right;
+    margin-left: 25%;
+}
+
+.helptext {
+    font-size: 12px;
+}
+
+.about_me img {
+    border-radius: 20%;
+}
+
+.about_me {
+    display: flex;
+}
+
+.about_text {
+    margin-left: 30px;
+    text-align:justify;
+}
+
+.about_text h2 {
+    text-align: center;
+}
+
+.socials {
+    text-align: center;
+}
+
+.back_home {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.my_page {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.back_to_list {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.submit_btn input, select {
+    cursor: pointer;
+}
+.submit input {
+    cursor: pointer;
+}
+
+.image img {
+    width: 300px;
+    height: 440px;
+    margin-right: 15px;
+    border-radius: 20px;
+}
+
+.book_info {
+    display: flex;
+}
+
+.sth_class1 {
+    text-align: center;
+}
+
+.genre {
+    font: italic 0.9em "Fira Sans", serif;
+}

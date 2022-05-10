@@ -1,0 +1,23 @@
+{% extends "bookshop/base.html" %}
+
+{% block content %}
+
+<h2>Об авторе:</h2>
+
+<h1>{{ author }}</h1>
+<p>{{ author.author_description }}</p>
+Список книг:
+<ol>{% for author in author.book_set.all %}
+    <li><a href="{% url 'book_detail' author.pk %}">{{ author.book_name }}</a></li>
+    {% endfor %}
+</ol>
+
+<div class="back_to_list">
+<a href="{% url 'home' %}">Вернуться к списку</a>
+
+{% if user.is_staff %}
+    | <a href="{% url 'update_author' author.pk %}">Изменить автора</a>
+{% endif %}
+</div>
+
+{% endblock content %}

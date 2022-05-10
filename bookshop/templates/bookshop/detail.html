@@ -1,0 +1,47 @@
+{% extends "bookshop/base.html" %}
+
+{% block content %}
+
+<h2>О книге:</h2>
+<div class="book_info">
+        {% if book.photo %}
+            <div class="image"><img src='{{ book.photo.url }}'> </div>
+        {% endif %}
+    <div>
+        <a href="{% url 'author_detail' book.author.get.id %}">Автор: {{book.author.get}} </a> 
+        <div class="genre"><h1>{{ book.book_name }}</h1>
+        <p> {% for genre in book.genre.all %} 
+            {{ genre }} /
+            {% endfor %}
+        </p> </div>
+        <p>{{ book.description }}</p>
+        <div class="sth_class1">
+            {{ book.pages }} страниц |
+            Цена: {{ book.price }} ₽ |
+            {{ book.language }} язык 
+        <p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Купить книгу</a></p>
+        <a href="{% url 'home' %}">Вернуться к списку</a>
+        {% if user.is_staff %}
+        | <a href="{% url 'update_book' book.pk %}">Изменить книгу</a> | 
+        <a href="{% url 'delete_book' book.pk %}">Удалить книгу</a>   
+        {% endif %}
+    </div> 
+    </div>
+</div>
+
+<h3>Отзывы и вопросы о товаре:</h3>
+
+{% if not book.comments.all %}
+    Пока никто не оставил отзывов. Станьте первым! <br/><br/>
+{% else %}
+    {% for comment in book.comments.all|dictsortreversed:"date_added" %}
+        {{ comment.author }} - 
+        {{ comment.date_added }} <br/><br/>
+        {{ comment.body }} <hr>
+    {% endfor %}
+{% endif %} 
+    <div class="sth_class1">
+        <a href="{% url 'create_comment' book.pk %}">Добавить комментарий</a>
+    </div>
+</div>
+{% endblock content %} 

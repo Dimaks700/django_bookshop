@@ -1,0 +1,19 @@
+{% extends "bookshop/base.html" %}
+
+{% block content %}
+<div class="create_book">
+    <h1>Добавить комментарий:</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="author">Имя:</label>
+            {{ form.author }} 
+        <label for="body">Введите текст:</label>
+            {{ form.body }} 
+        
+        <div class="btn">
+            <input type="submit" value="Добавить">
+            <a href="{% url 'home' %}">Вернуться к списку</a>
+        </div> 
+    </form>
+</div>
+    {% endblock content %}

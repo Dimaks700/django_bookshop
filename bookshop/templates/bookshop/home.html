@@ -1,0 +1,64 @@
+{% extends "bookshop/base.html" %}
+{% block content %}
+<div class="home_page">
+    <h1>Книжный магазин</h1>
+    <div class="greeting">
+        {% if user.is_authenticated  %}
+        Добро пожаловать, {{user}}!
+        <p><a href="{% url 'logout' %}">Выйти</a></p>
+        {% if user.is_staff %}
+            <a href="add_book">Добавить книгу</a> | <a href="{% url 'create_author' %}">Добавить автора</a>      
+        {% endif %}
+        
+    {% else %}
+    <a href="{% url 'signup' %}">Зарегистрироваться</a> | 
+    <a href="{% url 'login' %}">Войти</a>
+    {% endif %}
+    </div>
+
+    <form action="{% url 'search' %}" method="post"> 
+        {% csrf_token %}
+            <label for="name">Поиск:</label>
+            <input id="name" type="text" name="search">
+            <div class="submit">
+                <input type="submit" value="Найти">
+            </div>
+    </form>
+
+    
+    <p>Список книг:</p> 
+    <div class="some_class">
+        <ol>
+            {% for book in object_list %}
+                <li> <a href="{% url 'book_detail' book.pk %}">{{ book }}</a> - 
+                    {% for author in book.author.all %}
+                    <a href="{% url 'author_detail' author.id %}">{{ author.author_name }}</a> 
+                    {% endfor %}
+                </li>
+            {% empty %}
+                <li>В данный момент книг нет.</li>
+            {% endfor %}
+        
+            </ol>
+    </div>
+
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; первая страница</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">предыдущая страница</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">следующая страница</a> |
+                    <a href="?page={{ page_obj.paginator.num_pages }}">последняя страница &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+
+
+</div>
+{% endblock content %}

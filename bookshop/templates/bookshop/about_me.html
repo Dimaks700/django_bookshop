@@ -1,0 +1,24 @@
+{% extends "bookshop/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="about_me">
+        <img src="{% static 'bookshop/photo.jpg' %}" alt="My image">
+    <div class="about_text">
+        <h2>Привет!</h2>
+        <p>
+            &nbsp&nbsp&nbsp&nbsp&nbspМеня зовут Хамидулин Дмитрий, я студент третьего курса, мне 20 лет. Это мой первый самостоятельный пет проект.
+            Все проекты, которые я делал до этого, были повторением туториалов. Этот сайт создан с помощью Django.
+        </p> 
+    </div>
+</div>
+
+<div class='socials'>
+    <h4>Мои соцсети:</h4>
+    <a href="https://vk.com/khomy_d">Вконтакте</a> | 
+    <a href="https://t.me/Khomy_doo_lin">Телеграм</a>
+    <div class="back_home">
+        <a href="{% url 'home'%}">Вернуться к книгам</a>
+    </div>
+</div>    
+{% endblock content %}

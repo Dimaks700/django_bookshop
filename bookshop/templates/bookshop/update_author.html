@@ -1,0 +1,18 @@
+{% extends "bookshop/base.html" %}
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    <div class="create_book">
+        <label for="author_name">Имя автора</label>
+        {{ form.author_name }}
+        <label for="author_description">Об авторе</label>
+        {{ form.author_description }}
+    </div>
+    
+    <div class="btn">
+        <input type="submit" value="Изменить">
+        <a href="{% url 'home' %}">Вернуться к списку</a>
+    </div>
+</form>
+
+{% endblock content %} 

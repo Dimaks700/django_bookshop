@@ -1,0 +1,13 @@
+{% extends "bookshop/base.html" %}
+{% block title %}Зарегистрироваться{% endblock %}
+{% block content %}
+<h1>Регистрация</h1>
+  <form method="post" action="{% url 'signup' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+  <div class="btn">
+    <input type="submit" value="Зарегистрироваться">
+    <a href="{% url 'home' %}">Вернуться</a>
+  </div>
+  </form>
+{% endblock %} 
