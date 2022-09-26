@@ -12,5 +12,6 @@ urlpatterns = [
     path('<pk>/update_author', views.AuthorUpdateView.as_view(), name='update_author'),
     path('search', views.search, name='search'), 
     path('add_author/', views.CreateAuthorView.as_view(), name='create_author'),
-    path('<int:pk>/add_comment/', views.CommentCreateView.as_view(), name='create_comment')
+    path('<int:pk>/add_comment/', views.CommentCreateView.as_view(), name='create_comment'),
+    path('<user_name>', views.user_profile, name='user_profile')
 ]

@@ -1,0 +1,15 @@
+{% extends "bookshop/base.html" %}
+
+{% block content %}
+<h2>Моя корзина</h2>
+<p>Привет, {{user.first_name}} {{user.last_name}}!</p> 
+
+{% if new_book %}
+Вы добавили книгу: {{new_book}}
+{% else %}
+<p> Ваша корзина пуста. </p>
+{% endif %}
+
+<a href="{% url 'home' %}">Вернуться</a>
+
+{% endblock content %} 
