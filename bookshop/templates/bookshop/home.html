@@ -3,8 +3,8 @@
 <div class="home_page">
     <h1>Книжный магазин</h1>
     <div class="greeting">
-        {% if user.is_authenticated  %}
-        Добро пожаловать, {{user}}!
+        {% if user.is_authenticated  %} 
+        Добро пожаловать, {{user}}! <a href={{user}}>Профиль</a>
         <p><a href="{% url 'logout' %}">Выйти</a></p>
         {% if user.is_staff %}
             <a href="add_book">Добавить книгу</a> | <a href="{% url 'create_author' %}">Добавить автора</a>      

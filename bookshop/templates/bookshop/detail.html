@@ -19,7 +19,15 @@
             {{ book.pages }} страниц |
             Цена: {{ book.price }} ₽ |
             {{ book.language }} язык 
-        <p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley">Купить книгу</a></p>
+
+        <p>
+            <form action="{% url 'user_profile' user_name=user %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="book_pk" id="book_pk" value={{book.pk}}>
+                <input type="submit" value="Добавить книгу">
+            </form>
+        </p>
+
         <a href="{% url 'home' %}">Вернуться к списку</a>
         {% if user.is_staff %}
         | <a href="{% url 'update_book' book.pk %}">Изменить книгу</a> | 

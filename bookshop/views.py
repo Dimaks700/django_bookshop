@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -73,3 +74,12 @@ class CommentCreateView(CreateView):
         return super().form_valid(form)
     def get_success_url(self):
         return reverse_lazy('book_detail', kwargs={'pk': self.kwargs['pk']})
+
+def user_profile(request, user_name):
+    if request.method == 'POST':
+        new_book_pk = request.POST.get('book_pk')
+        new_book = Book.objects.get(pk=new_book_pk)
+        context = {'user_name': user_name, 'new_book': new_book}
+    else:
+        context = {'user_name': user_name}
+    return render(request, 'bookshop/profile.html', context)
