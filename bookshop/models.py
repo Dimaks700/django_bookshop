@@ -47,3 +47,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.author
+
+class Cart(models.Model):
+    cart_man = models.ForeignKey(User, on_delete=models.CASCADE)
+    cart_items = models.ManyToManyField(Book)
+    def __str__(self) -> str:
+        return self.cart_man.first_name

@@ -5,7 +5,16 @@
 <p>Привет, {{user.first_name}} {{user.last_name}}!</p> 
 
 {% if new_book %}
-Вы добавили книгу: {{new_book}}
+
+Список книг:  {{ new_book|length }}
+<ul>
+    {% for book in new_book %}
+        <ol> <a href="{% url 'book_detail' book.pk %}">{{book.book_name}}</a> - {{book.price}} ₽ </ol>
+    {% endfor %}
+</ul>
+<p>Товаров на сумму: {{total_sum}} ₽
+</p>
+
 {% else %}
 <p> Ваша корзина пуста. </p>
 {% endif %}

@@ -7,8 +7,9 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
 from .forms import CommentForm
+from django.db.models import Sum
 
-from .models import Book, Author, Comment
+from .models import Book, Author, Comment, Cart, User
 import bookshop.forms
 
 class HomeListView(generic.ListView):
@@ -79,7 +80,20 @@ def user_profile(request, user_name):
     if request.method == 'POST':
         new_book_pk = request.POST.get('book_pk')
         new_book = Book.objects.get(pk=new_book_pk)
-        context = {'user_name': user_name, 'new_book': new_book}
+        if Cart.objects.filter(cart_man__exact=request.user.id).exists():
+            man = Cart.objects.get(cart_man = request.user)
+            man.cart_items.add(new_book)
+        else:
+            c = Cart(cart_man = request.user)
+            c.save()
+            c.cart_items.add(new_book)
     else:
-        context = {'user_name': user_name}
+        if not Cart.objects.filter(cart_man__exact=request.user.id).exists():
+            return render(request, 'bookshop/profile.html')
+
+    man = Cart.objects.get(cart_man = request.user)
+    items = man.cart_items.all()
+    total_sum = items.aggregate(Sum('price'))['price__sum']
+    context = {'user_name': man, 'new_book': items, 'total_sum': total_sum}
+
     return render(request, 'bookshop/profile.html', context)
