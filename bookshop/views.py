@@ -78,15 +78,25 @@ class CommentCreateView(CreateView):
 
 def user_profile(request, user_name):
     if request.method == 'POST':
-        new_book_pk = request.POST.get('book_pk')
-        new_book = Book.objects.get(pk=new_book_pk)
-        if Cart.objects.filter(cart_man__exact=request.user.id).exists():
+        if request.POST.get('delete_book') == 'delete_book':
+            book_pk = request.POST.get('book_pk')
             man = Cart.objects.get(cart_man = request.user)
-            man.cart_items.add(new_book)
+            book_delete = man.cart_items.remove(book_pk)
+            #return HttpResponse('ok')
+            
+        elif request.POST.get('clear_cart') == "clear_cart":
+            Cart.objects.filter(cart_man__exact=request.user.id).delete()
+            return render(request, 'bookshop/profile.html')
         else:
-            c = Cart(cart_man = request.user)
-            c.save()
-            c.cart_items.add(new_book)
+            new_book_pk = request.POST.get('book_pk')
+            new_book = Book.objects.get(pk=new_book_pk)
+            if Cart.objects.filter(cart_man__exact=request.user.id).exists():
+                man = Cart.objects.get(cart_man = request.user)
+                man.cart_items.add(new_book)
+            else:
+                c = Cart(cart_man = request.user)
+                c.save()
+                c.cart_items.add(new_book)
     else:
         if not Cart.objects.filter(cart_man__exact=request.user.id).exists():
             return render(request, 'bookshop/profile.html')
