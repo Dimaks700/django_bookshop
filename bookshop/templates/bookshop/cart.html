@@ -1,0 +1,45 @@
+{% extends "bookshop/base.html" %}
+
+{% block content %}
+<h2>Моя корзина</h2>
+<p>Привет, {{user.first_name}} {{user.last_name}}!</p> 
+
+{% if new_book %}
+
+Список книг:  {{ new_book|length }}
+<ul>
+    {% for book in new_book %}
+        <ol> <a href="{% url 'book_detail' book.pk %}">{{book.book_name}}</a> - {{book.price}} ₽ </ol>
+
+        <form action="{% url 'cart' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="book_pk" id="book_pk" value={{book.pk}}>
+            <input type="hidden" name="delete_book" id="delete_book" value=delete_book>
+            <input type="submit" value="Удалить книгу">
+            <p></p>
+        </form>
+
+    {% endfor %}
+</ul>
+<p>Товаров на сумму: {{total_sum}} ₽
+</p>
+ 
+<form action="">
+    <input type="submit" value="Перейти к оформлению" />
+</form>
+
+{% else %}
+<p> Ваша корзина пуста. </p>
+{% endif %}
+
+<p>
+    <form action="{% url 'cart' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="clear_cart" id="clear_cart" value="clear_cart">
+        <input type="submit" value="Очистить корзину">
+    </form>
+</p>
+
+<a href="{% url 'home' %}">Вернуться</a>
+
+{% endblock content %} 
