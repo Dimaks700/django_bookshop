@@ -11,7 +11,20 @@
 
 </head>
 <body>
-    <div class="everything">{% block content %}{% endblock %}</div>
+
+    <div class="everything">
+        <form action="{% url 'search' %}" method="post"> 
+            {% csrf_token %}
+                <label for="name">Поиск:</label>
+                <input id="name" type="text" name="search">
+                <div class="submit">
+                    <input type="submit" value="Найти">
+                </div>
+        </form>
+
+        {% block content %}
+        {% endblock %}
+    </div>
 
     <div class="my_page">
         <a href="{% url 'about_me'%}">Страничка создателя сайта</a>

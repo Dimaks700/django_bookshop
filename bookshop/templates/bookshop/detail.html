@@ -21,7 +21,7 @@
             {{ book.language }} язык 
 
         <p>
-            <form action="{% url 'user_profile' user_name=user %}" method="POST">
+            <form action="{% url 'cart' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="book_pk" id="book_pk" value={{book.pk}}>
                 <input type="submit" value="Добавить книгу">

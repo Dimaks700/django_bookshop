@@ -2,13 +2,6 @@
 
 {% block content %}
 
-<form action="{% url 'search' %}" method="post"> 
-    {% csrf_token %}
-        <label for="name">Поиск:</label>
-        <input id="name" type="text" name="search">
-        <div class="submit_btn">
-            <input type="submit" value="Найти"> 
-        </div>
 </form>
  
 {% if search %}

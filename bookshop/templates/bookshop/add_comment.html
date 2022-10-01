@@ -5,8 +5,7 @@
     <h1>Добавить комментарий:</h1>
     <form method="post">
         {% csrf_token %}
-        <label for="author">Имя:</label>
-            {{ form.author }} 
+
         <label for="body">Введите текст:</label>
             {{ form.body }} 
         

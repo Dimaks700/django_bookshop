@@ -4,7 +4,7 @@
     <h1>Книжный магазин</h1>
     <div class="greeting">
         {% if user.is_authenticated  %} 
-        Добро пожаловать, {{user}}! <a href={{user}}>Профиль</a>
+        Добро пожаловать, {{user.first_name}}! <a href="{% url 'cart' %}">Корзина</a>
         <p><a href="{% url 'logout' %}">Выйти</a></p>
         {% if user.is_staff %}
             <a href="add_book">Добавить книгу</a> | <a href="{% url 'create_author' %}">Добавить автора</a>      
@@ -16,16 +16,6 @@
     {% endif %}
     </div>
 
-    <form action="{% url 'search' %}" method="post"> 
-        {% csrf_token %}
-            <label for="name">Поиск:</label>
-            <input id="name" type="text" name="search">
-            <div class="submit">
-                <input type="submit" value="Найти">
-            </div>
-    </form>
-
-    
     <p>Список книг:</p> 
     <div class="some_class">
         <ol>

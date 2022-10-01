@@ -54,7 +54,8 @@ class AuthorUpdateView(UpdateView):
 def search(request):
     if request.method == 'POST':
         search = request.POST['search']
-        name = Book.objects.filter(book_name__contains=search)
+        name = Book.objects.filter(book_name__icontains=search) 
+        #В SQLite поиск всяких символов кроме ASCII case-sensitive, icontains не работает
         number = name.count()
         return render(request, 'bookshop/search_result.html', 
         {'search':search, 'name':name, 'number': number})
@@ -70,23 +71,26 @@ class CommentCreateView(CreateView):
     model = Comment
     template_name = 'bookshop/add_comment.html'
     form_class = CommentForm
+    
     def form_valid(self, form):
         form.instance.book_id = self.kwargs['pk']
+        name = f"{self.request.user.first_name} {self.request.user.last_name}"
+        form.instance.author = name
         return super().form_valid(form)
+
     def get_success_url(self):
         return reverse_lazy('book_detail', kwargs={'pk': self.kwargs['pk']})
 
-def user_profile(request, user_name):
+def cart(request):
     if request.method == 'POST':
         if request.POST.get('delete_book') == 'delete_book':
             book_pk = request.POST.get('book_pk')
             man = Cart.objects.get(cart_man = request.user)
             book_delete = man.cart_items.remove(book_pk)
-            #return HttpResponse('ok')
             
         elif request.POST.get('clear_cart') == "clear_cart":
             Cart.objects.filter(cart_man__exact=request.user.id).delete()
-            return render(request, 'bookshop/profile.html')
+            return render(request, 'bookshop/cart.html')
         else:
             new_book_pk = request.POST.get('book_pk')
             new_book = Book.objects.get(pk=new_book_pk)
@@ -99,11 +103,11 @@ def user_profile(request, user_name):
                 c.cart_items.add(new_book)
     else:
         if not Cart.objects.filter(cart_man__exact=request.user.id).exists():
-            return render(request, 'bookshop/profile.html')
+            return render(request, 'bookshop/cart.html')
 
     man = Cart.objects.get(cart_man = request.user)
     items = man.cart_items.all()
     total_sum = items.aggregate(Sum('price'))['price__sum']
     context = {'user_name': man, 'new_book': items, 'total_sum': total_sum}
 
-    return render(request, 'bookshop/profile.html', context)
+    return render(request, 'bookshop/cart.html', context)
