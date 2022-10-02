@@ -1,11 +1,12 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
+from requests import request
 from .forms import CommentForm
 from django.db.models import Sum
 
@@ -17,11 +18,26 @@ class HomeListView(generic.ListView):
     paginate_by = 10
     template_name = 'bookshop/home.html'
     ordering = ['id']
-    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            try:
+                context['cart_items'] = Cart.objects.get(cart_man = self.request.user).cart_items.count()
+            except Cart.DoesNotExist:
+                return context
+        return context
+
 class BookDetailView(generic.DetailView):
     model = Book
     template_name = 'bookshop/detail.html'
     context_object_name = 'book'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_book = Book.objects.get(pk=self.kwargs.get('pk'))
+        comment_list = current_book.comments.all()
+        total_likes = [i.total_likes() for i in comment_list]
+        context['total_likes'] = total_likes
+        return context
 
 class AuthorDetailView(generic.DetailView):
     model = Author
@@ -111,3 +127,8 @@ def cart(request):
     context = {'user_name': man, 'new_book': items, 'total_sum': total_sum}
 
     return render(request, 'bookshop/cart.html', context)
+
+def LikeView(request, pk):
+    comment = get_object_or_404(Comment, id=request.POST.get('comment_id')) 
+    comment.likes.add(request.user)
+    return HttpResponseRedirect(reverse('book_detail', args=[str(pk)]))

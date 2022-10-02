@@ -1,4 +1,5 @@
 {% extends "bookshop/base.html" %}
+{% load bookshop_extras %}
 
 {% block content %}
 
@@ -21,11 +22,15 @@
             {{ book.language }} язык 
 
         <p>
+            {% if user.is_authenticated %}
             <form action="{% url 'cart' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="book_pk" id="book_pk" value={{book.pk}}>
                 <input type="submit" value="Добавить книгу">
             </form>
+            {% else %}
+            <strong>Войдите в аккаунт, чтобы добавить книгу</strong> 
+            {% endif %}
         </p>
 
         <a href="{% url 'home' %}">Вернуться к списку</a>
@@ -37,7 +42,7 @@
     </div>
 </div>
 
-<h3>Отзывы и вопросы о товаре:</h3>
+<h3>Отзывы:</h3>
 
 {% if not book.comments.all %}
     Пока никто не оставил отзывов. Станьте первым! <br/><br/>
@@ -45,11 +50,23 @@
     {% for comment in book.comments.all|dictsortreversed:"date_added" %}
         {{ comment.author }} - 
         {{ comment.date_added }} <br/><br/>
-        {{ comment.body }} <hr>
+        {{ comment.body }} - 
+        
+        {{ total_likes|index:forloop.revcounter0 }} лайков
+        
+            {% if user.is_authenticated %}
+            <form action="{% url 'like_comments' book.pk %}" method="POST"> 
+                {% csrf_token %}
+                <button type="submit", name="comment_id", value="{{ comment.pk }}">Нравится</button>
+            </form>
+            {% endif %}
+        <hr>
     {% endfor %}
 {% endif %} 
+{% if user.is_authenticated %}
     <div class="sth_class1">
         <a href="{% url 'create_comment' book.pk %}">Добавить комментарий</a>
     </div>
+{% endif %}
 </div>
 {% endblock content %} 

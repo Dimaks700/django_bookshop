@@ -44,9 +44,13 @@ class Comment(models.Model):
     body = models.TextField()
     book = models.ForeignKey(Book, related_name="comments", on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now_add=True)
-
+    likes = models.ManyToManyField(User, related_name='user_likes')
+    
     def __str__(self):
         return self.author
+
+    def total_likes(self): 
+        return self.likes.count()
 
 class Cart(models.Model):
     cart_man = models.ForeignKey(User, on_delete=models.CASCADE)

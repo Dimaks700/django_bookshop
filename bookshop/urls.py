@@ -13,5 +13,6 @@ urlpatterns = [
     path('search', views.search, name='search'), 
     path('add_author/', views.CreateAuthorView.as_view(), name='create_author'),
     path('<int:pk>/add_comment/', views.CommentCreateView.as_view(), name='create_comment'),
-    path('cart', views.cart, name='cart')
+    path('cart', views.cart, name='cart'),
+    path('like/<int:pk>', views.LikeView, name='like_comments')
 ]
