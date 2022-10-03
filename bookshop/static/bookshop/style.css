@@ -174,3 +174,7 @@ a:visited {
 .genre {
     font: italic 0.9em "Fira Sans", serif;
 }
+
+.cart_home_page {
+    background-color: rgb(0, 0, 0);
+}

@@ -51,8 +51,7 @@
         {{ comment.author }} - 
         {{ comment.date_added }} <br/><br/>
         {{ comment.body }} - 
-        
-        {{ total_likes|index:forloop.revcounter0 }} лайков
+        {{ total_likes|index:forloop.revcounter0 }} лайков 
         
             {% if user.is_authenticated %}
             <form action="{% url 'like_comments' book.pk %}" method="POST"> 

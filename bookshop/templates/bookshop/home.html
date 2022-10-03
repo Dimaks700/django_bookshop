@@ -5,7 +5,7 @@
     <div class="greeting">
         {% if user.is_authenticated  %} 
         Добро пожаловать, {{user.first_name}}! 
-        <a href="{% url 'cart' %}">Корзина: {{ cart_items }} </a>
+        <span class="cart_home_page"> <a href="{% url 'cart' %}">Корзина: {{ cart_items }} </a> </span>
         <p><a href="{% url 'logout' %}">Выйти</a></p>
         {% if user.is_staff %}
             <a href="add_book">Добавить книгу</a> | <a href="{% url 'create_author' %}">Добавить автора</a>      
