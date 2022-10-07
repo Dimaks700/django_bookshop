@@ -57,3 +57,9 @@ class Cart(models.Model):
     cart_items = models.ManyToManyField(Book)
     def __str__(self) -> str:
         return self.cart_man.first_name
+
+class Orders(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='book_order')
+    number_of_orders = models.IntegerField(verbose_name="Количество заказов")
+    def __str__(self) -> str:
+        return f"{self.book.book_name} - {self.number_of_orders} заказов"

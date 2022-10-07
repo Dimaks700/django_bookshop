@@ -24,7 +24,8 @@
 <p>Товаров на сумму: {{total_sum}} ₽
 </p>
  
-<form action="">
+<form action="{% url 'purchase' %}" method="POST">
+    {% csrf_token %}
     <input type="submit" value="Перейти к оформлению" />
 </form>
 

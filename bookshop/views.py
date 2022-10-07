@@ -10,7 +10,7 @@ from requests import request
 from .forms import CommentForm
 from django.db.models import Sum
 
-from .models import Book, Author, Comment, Cart, User
+from .models import Book, Author, Comment, Cart, User, Orders
 import bookshop.forms
 
 class HomeListView(generic.ListView):
@@ -20,6 +20,7 @@ class HomeListView(generic.ListView):
     ordering = ['id']
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['bestsellers'] = Orders.objects.order_by('-number_of_orders')[0:4]
         if self.request.user.is_authenticated:
             try:
                 context['cart_items'] = Cart.objects.get(cart_man = self.request.user).cart_items.count()
@@ -103,7 +104,6 @@ def cart(request):
             book_pk = request.POST.get('book_pk')
             man = Cart.objects.get(cart_man = request.user)
             book_delete = man.cart_items.remove(book_pk)
-            
         elif request.POST.get('clear_cart') == "clear_cart":
             Cart.objects.filter(cart_man__exact=request.user.id).delete()
             return render(request, 'bookshop/cart.html')
@@ -138,3 +138,17 @@ def LikeView(request, pk):
         comment.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(reverse('book_detail', args=[str(pk)]))
+
+def cart_purchase(request):
+    items = Cart.objects.get(cart_man = request.user).cart_items.all()
+    items_pk = [i.pk for i in items]
+    for i in items_pk:
+        if not Orders.objects.filter(book=i).exists():
+            x = Orders(book_id=i, number_of_orders=1)
+            x.save()
+        else:
+            x = Orders.objects.get(book=i)
+            x.number_of_orders += 1
+            x.save()
+    x = Orders.objects.filter(book__in=items_pk)
+    return HttpResponseRedirect(reverse('cart'))

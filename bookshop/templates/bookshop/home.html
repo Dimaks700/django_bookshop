@@ -1,12 +1,21 @@
 {% extends "bookshop/base.html" %}
 {% block content %}
 <div class="home_page">
+    {% load static %}
     <h1>Книжный магазин</h1>
     <div class="greeting">
         {% if user.is_authenticated  %} 
-        Добро пожаловать, {{user.first_name}}! 
-        <span class="cart_home_page"> <a href="{% url 'cart' %}">Корзина: {{ cart_items }} </a> </span>
-        <p><a href="{% url 'logout' %}">Выйти</a></p>
+        <div style="float:right;">
+            Добро пожаловать, {{user.first_name}}! 
+            <br> <a href="{% url 'logout' %}">Выйти</a>
+        </div>
+        <div class="cart_home_page"> 
+            <button onclick="location.href='cart'" type="button">
+                <img src="{% static 'bookshop/cart_icon.png' %}" alt="My image">
+                <a href="{% url 'cart' %}">Корзина: {{ cart_items }} </a> 
+            </button>
+        </div>
+
         {% if user.is_staff %}
             <a href="add_book">Добавить книгу</a> | <a href="{% url 'create_author' %}">Добавить автора</a>      
         {% endif %}
@@ -17,6 +26,22 @@
     {% endif %}
     </div>
 
+    <hr>
+    <p>Хиты продаж:</p>  
+    <div class="bestsellers">
+        {% for i in bestsellers %}
+            <button onclick="location.href='{{i.book.pk}}'" type="button">
+                <div class="home_photo">
+                    <img src='{{ i.book.photo.url }}'>
+                </div> 
+                {{i.book.book_name}} - 
+                {% for author in i.book.author.all %}
+                    <div>{{ author.author_name }}</div>
+                {% endfor %}
+                </button> 
+        {% endfor %}
+    </div>
+    <hr>
     <p>Список книг:</p> 
     <div class="some_class">
         <ol>
