@@ -1,6 +1,6 @@
 # django_bookshop
 
-This is a [Django](http://www.djangoproject.com) project, which is a bookstore website: you can search for books, leave comments, likes. Administrators can add, delete, and modify books
+This is a [Django](http://www.djangoproject.com) project, which is a bookstore website: you can search for books, leave comments, likes. Administrators can add, delete, and modify books. I used Django, DTL, and also wrote CSS. 
 
 ## Setup
 ```sh
@@ -13,3 +13,7 @@ $ pip install -r requirements.txt
 $ python manage.py runserver
 ```
 And navigate to `http://127.0.0.1:8000/`.
+
+## 
+![main page]([http://url/to/img.png](https://github.com/Dimaks700/django_bookshop/blob/develop/media/images/Screen%20Shot%202023-02-02%20at%205.43.06%20PM.png))
+
