@@ -1,5 +1,7 @@
 # django_bookshop
 
+This is a [Django](http://www.djangoproject.com) project, which is a bookstore website: you can search for books, leave comments, likes. Administrators can add, delete, and modify books
+
 ## Setup
 ```sh
 $ git clone https://github.com/Dimaks700/django_bookshop.git
