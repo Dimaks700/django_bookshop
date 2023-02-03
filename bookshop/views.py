@@ -1,17 +1,14 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views import generic
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
 from requests import request
 from .forms import CommentForm
 from django.db.models import Sum
 
-from .models import Book, Author, Comment, Cart, User, Orders
-import bookshop.forms
+from .models import Book, Author, Comment, Cart, Orders
 
 class HomeListView(generic.ListView):
     model = Book
