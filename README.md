@@ -6,11 +6,14 @@ This is a [Django](http://www.djangoproject.com) project, which is a bookstore w
 ```sh
 $ git clone https://github.com/Dimaks700/django_bookshop.git
 $ cd django_bookshop 
-
+```
 If you have a Docker:
+```sh
 $ sh runserver.sh 
+```
 
 If you don't have a Docker:
+```sh
 $ pip3 install virtualenv
 $ python3 -m virtualenv myenv
 $ source myenv/bin/activate
