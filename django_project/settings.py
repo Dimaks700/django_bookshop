@@ -6,7 +6,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 token = os.getenv('Token')
-SECRET_KEY = " =&@5$w5d3m4-pez$9xifo_v2t4*sy5joy)gyl_@qptj@tnz%a5"
+SECRET_KEY = token
 
 DEBUG = True
 
