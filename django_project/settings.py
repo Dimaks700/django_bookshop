@@ -10,7 +10,7 @@ SECRET_KEY = " =&@5$w5d3m4-pez$9xifo_v2t4*sy5joy)gyl_@qptj@tnz%a5"
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
