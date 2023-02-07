@@ -9,18 +9,14 @@ $ cd django_bookshop
 ```
 If you have a Docker:
 ```sh
-$ sh runserver.sh 
+$ sh runserver_docker.sh 
 ```
 
 If you don't have a Docker:
 ```sh
-$ pip3 install virtualenv
-$ python3 -m virtualenv myenv
-$ source myenv/bin/activate
-$ pip install -r requirements.txt
-$ python manage.py runserver
+$ sh runserver.sh
 ```
-And navigate to `http://127.0.0.1:8000/`.
+And navigate to `http://0.0.0.0:80/`.
 
 ## 
 ![main page](https://github.com/Dimaks700/django_bookshop/blob/develop/media/images/Screen%20Shot%202023-02-02%20at%205.46.46%20PM.png)
